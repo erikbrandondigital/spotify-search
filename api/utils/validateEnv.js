@@ -1,5 +1,6 @@
 exports.validateEnv = () => {
     const PORT = process.env.PORT;
+    const API_BASE_URL = process.env.API_BASE_URL;
     const DATABASE_URL = process.env.DATABASE_URL;
     const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
     const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
@@ -9,6 +10,12 @@ exports.validateEnv = () => {
     if (!PORT) {
         errorMessages.push(
             'Error: Missing PORT environment variable in .env. Set it to an open port number & try again.'
+        );
+    }
+
+    if (!API_BASE_URL) {
+        errorMessages.push(
+            'Error: Missing API_BASE_URL environment variable in .env. Set it to a local or live URL & try again.'
         );
     }
 
