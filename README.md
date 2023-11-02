@@ -17,7 +17,7 @@ To get the project up and running make sure that you have all of the required pr
 
 1. Copy the `.env.dist` file and rename it to `.env` & update the environment variables to your desired settings.
 2. Run `npm install` to install all dependencies.
-3. Run `npm start` or `npm dev` to start the Express backend server & React frontend.
+3. Run `npm start` or `npm run dev` to start the Express backend server & React frontend.
 
 ### NPM Scripts Reference
 
@@ -25,15 +25,17 @@ To get the project up and running make sure that you have all of the required pr
 
 **Production:**
 - `npm start` = Start the production Express backend & React frontend.
-- `npm start:api` = Start the production Express backend only.
-- `npm start:react` = Build the production React frontend only.
+- `npm run start:api` = Start the production Express backend only.
+- `npm run start:react` = Build the production React frontend only.
 
 **Development:**
-- `npm dev` = Start the development Express backend & React frontend.
-- `npm dev:api` = Start the development Express backend only.
-- `npm dev:react` = Start the development React frontend only.
-- `npm lint:react` = Lint the React frontend using eslint.
+- `npm run dev` = Start the development Express backend & React frontend.
+- `npm run dev:api` = Start the development Express backend only.
+- `npm run dev:react` = Start the development React frontend only.
+- `npm run lint:react` = Lint the React frontend using eslint.
 
-## Links
+## Links & Endpoints
 - React Frontend = `http://localhost:3000/`
-- Express Backend = `http://localhost:3000/spotify/v1/`
+- Express Backend Login (Spotify OAuth Authorization) = `http://localhost:3000/spotify/v1/login`
+- Express Backend Callback (Spotify OAuth Token Retrieval) = `http://localhost:3000/spotify/v1/callback`
+- Express Backend Search = (Spotify Search Endpoint) `http://localhost:3000/spotify/v1/search`
