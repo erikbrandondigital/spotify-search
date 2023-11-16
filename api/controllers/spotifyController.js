@@ -58,12 +58,23 @@ exports.callback = async (req, res) => {
     }).then((response) => response.json());
 
     try {
-        await UserToken.create(newToken);
+        const newUser = await UserToken.create(newToken);
+        res.redirect(`${API_BASE_URL}/?id=${newUser._id}`);
     } catch (error) {
         console.error(error);
     }
+};
 
-    res.redirect(API_BASE_URL);
+exports.logout = async (req, res) => {
+    const { id } = req.query;
+
+    try {
+        await UserToken.deleteOne({ _id: id });
+        res.status(200).json({ message: 'User Successfully Logged Out' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message || 'Unexpected Error' });
+    }
 };
 
 exports.search = async (req, res, next) => {

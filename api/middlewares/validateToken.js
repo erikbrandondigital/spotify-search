@@ -8,11 +8,13 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 
 exports.validateToken = async (req, res, next) => {
     try {
-        let userToken = await UserToken.findOne();
+        const { id } = req.query;
+
+        let userToken = await UserToken.findOne({ _id: id });
 
         if (!userToken) {
             console.log('Token Does Not Exist. Re-Authorizing...');
-            res.redirect(`${API_BASE_URL}/spotify/v1/login`);
+            res.status(403).json({ message: 'Unauthorized' });
             return;
         }
         const currentTime = new Date().getTime();
