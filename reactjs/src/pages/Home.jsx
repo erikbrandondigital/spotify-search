@@ -6,12 +6,14 @@ import { UserContext } from '../contexts/UserContext';
 import TrackCard from '../components/TrackCard';
 import AlbumCard from '../components/AlbumCard';
 import ArtistCard from '../components/ArtistCard';
+import SkeletonCard from '../components/SkeletonCard';
 
 const API_BASE_URL = import.meta.env.API_BASE_URL;
 
 export default function Home() {
     const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
     const [disableSearch, setDisableSearch] = useState(true);
+    const [isSearching, setIsSearching] = useState(true);
     const [results, setResults] = useState(null);
     const [values, setValues] = useState({
         id: '',
@@ -45,6 +47,9 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setIsSearching(true);
+
         const queryParams = new URLSearchParams(values);
 
         let responseData = {};
@@ -53,7 +58,7 @@ export default function Home() {
                 `${API_BASE_URL}/spotify/v1/search?${queryParams}`
             ).then((response) => response.json());
         } catch (error) {
-            console.log(error.message || 'Unexpected Error');
+            console.error(error.message || 'Unexpected Error');
         }
 
         if (responseData.message === 'Unauthorized') {
@@ -62,6 +67,8 @@ export default function Home() {
         } else {
             parseResults(responseData);
         }
+
+        setIsSearching(false);
     };
 
     const parseResults = (responseData) => {
@@ -131,6 +138,12 @@ export default function Home() {
         setResults(data);
     };
 
+    const skeletons = Array(values.limit)
+        .fill(1)
+        .map((card, index) => {
+            return <SkeletonCard key={index} />;
+        });
+
     return (
         <MainStyled>
             {userLoggedIn ? (
@@ -174,7 +187,9 @@ export default function Home() {
                         {results && results.length === 0 ? (
                             <H2Styled>Sorry! No Results Found.</H2Styled>
                         ) : null}
-                        <DivStyled>{results}</DivStyled>
+                        <DivStyled>
+                            {isSearching ? skeletons : results}
+                        </DivStyled>
                     </SectionStyled>
                 </>
             ) : (
