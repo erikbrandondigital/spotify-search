@@ -42,6 +42,7 @@ const ButtonStyled = styled.button`
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 0.25s ease;
     &:hover {
         background-color: #168d40;
     }

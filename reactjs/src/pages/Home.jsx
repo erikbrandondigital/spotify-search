@@ -7,13 +7,14 @@ import TrackCard from '../components/TrackCard';
 import AlbumCard from '../components/AlbumCard';
 import ArtistCard from '../components/ArtistCard';
 import SkeletonCard from '../components/SkeletonCard';
+import { MdNavigateNext, MdOutlineNavigateBefore } from 'react-icons/md';
 
 const API_BASE_URL = import.meta.env.API_BASE_URL;
 
 export default function Home() {
     const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
     const [disableSearch, setDisableSearch] = useState(true);
-    const [isSearching, setIsSearching] = useState(true);
+    const [isSearching, setIsSearching] = useState(false);
     const [results, setResults] = useState(null);
     const [values, setValues] = useState({
         id: '',
@@ -45,12 +46,26 @@ export default function Home() {
         setValues({ ...values, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, nextPage, previousPage) => {
         e.preventDefault();
 
         setIsSearching(true);
 
-        const queryParams = new URLSearchParams(values);
+        let newOffset = values.offset;
+        if (nextPage) {
+            newOffset += 12;
+            window.scrollTo(0, 0);
+        }
+
+        if (previousPage) {
+            newOffset -= 12;
+            window.scrollTo(0, 0);
+        }
+
+        const queryParams = new URLSearchParams({
+            ...values,
+            offset: newOffset
+        });
 
         let responseData = {};
         try {
@@ -68,6 +83,7 @@ export default function Home() {
             parseResults(responseData);
         }
 
+        setValues({ ...values, offset: newOffset });
         setIsSearching(false);
     };
 
@@ -151,7 +167,7 @@ export default function Home() {
                     <H1Styled>What Would You Like To Listen To?</H1Styled>
                     <FormStyled
                         onSubmit={(e) => {
-                            handleSubmit(e);
+                            handleSubmit(e, false, false);
                         }}
                     >
                         <SelectStyled
@@ -191,6 +207,28 @@ export default function Home() {
                             {isSearching ? skeletons : results}
                         </DivStyled>
                     </SectionStyled>
+                    {results && results.length > 0 ? (
+                        <PageNavDivStyled>
+                            {values.offset > 0 ? (
+                                <PageButtonStyled
+                                    onClick={(e) =>
+                                        handleSubmit(e, false, true)
+                                    }
+                                    type='button'
+                                >
+                                    <MdOutlineNavigateBefore size={24} />
+                                    Previous Page
+                                </PageButtonStyled>
+                            ) : null}
+                            <PageButtonStyled
+                                onClick={(e) => handleSubmit(e, true, false)}
+                                type='button'
+                            >
+                                Next Page
+                                <MdNavigateNext size={24} />
+                            </PageButtonStyled>
+                        </PageNavDivStyled>
+                    ) : null}
                 </>
             ) : (
                 <>
@@ -257,9 +295,43 @@ const ButtonStyled = styled.button`
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.25s ease;
     &:hover {
         background-color: #168d40;
     }
+    &:disabled {
+        cursor: not-allowed;
+        background-color: #1f1f1f;
+    }
+`;
+
+const PageButtonStyled = styled.button`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover {
+        background-color: #121212;
+    }
+`;
+
+const PageNavDivStyled = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 `;
 
 const SectionStyled = styled.section``;
