@@ -5,5 +5,13 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
     envDir: '../',
     envPrefix: 'API',
-    plugins: [react()]
+    plugins: [react()],
+    server: {
+        proxy: {
+            '/spotify/v1': {
+                target: 'http://localhost:5173',
+                changeOrigin: true
+            }
+        }
+    }
 });

@@ -1,29 +1,40 @@
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Button from '../components/buttons/Button';
 import LoginButton from '../components/buttons/LoginButton';
 import { UserContext } from '../contexts/UserContext';
+import TrackCard from '../components/TrackCard';
+import AlbumCard from '../components/AlbumCard';
+import ArtistCard from '../components/ArtistCard';
 
 const API_BASE_URL = import.meta.env.API_BASE_URL;
 
 export default function Home() {
     const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+    const [disableSearch, setDisableSearch] = useState(true);
+    const [results, setResults] = useState(null);
     const [values, setValues] = useState({
         id: '',
         q: '',
         type: 'track',
         market: 'US',
-        limit: 10,
+        limit: 12,
         offset: 0
     });
 
     useEffect(() => {
-        if (userLoggedIn) {
+        if (!values.id && userLoggedIn) {
             setValues({
                 ...values,
                 id: JSON.parse(localStorage.getItem('tokenID'))
             });
+        }
+
+        if (values.q.length > 0) {
+            setDisableSearch(false);
+        } else {
+            setDisableSearch(true);
+            setResults(null);
         }
     }, [userLoggedIn, values, setValues]);
 
@@ -48,50 +59,127 @@ export default function Home() {
         if (responseData.message === 'Unauthorized') {
             localStorage.removeItem('tokenID');
             setUserLoggedIn(false);
+        } else {
+            parseResults(responseData);
+        }
+    };
+
+    const parseResults = (responseData) => {
+        let data = [];
+
+        if (responseData.tracks) {
+            data = responseData.tracks.items.map((item) => {
+                const url = item.external_urls?.spotify;
+                const imageURL = item.album.images[1]?.url;
+                const trackName = item?.name;
+                const artistName = item.artists[0]?.name;
+
+                return (
+                    <TrackCard
+                        key={item.id}
+                        url={url}
+                        image={imageURL}
+                        name={trackName}
+                        artist={artistName}
+                    />
+                );
+            });
         }
 
-        console.log(responseData);
+        if (responseData.albums) {
+            data = responseData.albums.items.map((item) => {
+                const url = item.external_urls?.spotify;
+                const imageURL = item.images[1]?.url;
+                const albumName = item?.name;
+                const artistName = item.artists[0]?.name;
+                const releaseYear = new Date(item?.release_date).getFullYear();
+
+                return (
+                    <AlbumCard
+                        key={item.id}
+                        url={url}
+                        image={imageURL}
+                        name={albumName}
+                        artist={artistName}
+                        year={releaseYear}
+                    />
+                );
+            });
+        }
+
+        if (responseData.artists) {
+            data = responseData.artists.items.map((item) => {
+                const url = item.external_urls?.spotify;
+                const imageURL = item.images[1]?.url;
+                const artistName = item?.name;
+                const followers = new Intl.NumberFormat().format(
+                    item.followers?.total
+                );
+
+                return (
+                    <ArtistCard
+                        key={item.id}
+                        url={url}
+                        image={imageURL}
+                        name={artistName}
+                        followers={followers}
+                    />
+                );
+            });
+        }
+
+        setResults(data);
     };
 
     return (
         <MainStyled>
             {userLoggedIn ? (
                 <>
-                    <h1>What Would You Like To Listen To?</h1>
-                    <form
+                    <H1Styled>What Would You Like To Listen To?</H1Styled>
+                    <FormStyled
                         onSubmit={(e) => {
                             handleSubmit(e);
                         }}
                     >
-                        <select
+                        <SelectStyled
                             name='type'
                             id='type'
                             value={values.type}
                             onChange={(e) => handleInput(e)}
                         >
                             <option value='track' defaultValue={true}>
-                                Track
+                                Tracks
                             </option>
-                            <option value='artist'>Artist</option>
-                            <option value='album'>Album</option>
-                        </select>
+                            <option value='artist'>Artists</option>
+                            <option value='album'>Albums</option>
+                        </SelectStyled>
                         <label htmlFor='query'>
-                            <input
+                            <InputStyled
                                 type='text'
                                 id='query'
+                                placeholder={`Enter the ${values.type}'s name`}
                                 name='q'
                                 value={values.q}
+                                required
                                 onChange={(e) => {
                                     handleInput(e);
                                 }}
-                            ></input>
+                            />
                         </label>
-                        <Button type='submit' text='Search' />
-                    </form>
+                        <ButtonStyled type='submit' disabled={disableSearch}>
+                            Search
+                        </ButtonStyled>
+                    </FormStyled>
+                    <SectionStyled>
+                        {results && results.length === 0 ? (
+                            <H2Styled>Sorry! No Results Found.</H2Styled>
+                        ) : null}
+                        <DivStyled>{results}</DivStyled>
+                    </SectionStyled>
                 </>
             ) : (
                 <>
-                    <h1>To Begin Your Search For Great Music...</h1>
+                    <H1Styled>To Begin Your Search For Great Music...</H1Styled>
                     <LoginButton />
                 </>
             )}
@@ -105,4 +193,64 @@ const MainStyled = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+    background-color: #000000;
+`;
+
+const H1Styled = styled.h1`
+    color: #ffffff;
+`;
+
+const H2Styled = styled.h2`
+    color: #ffffff;
+`;
+
+const FormStyled = styled.form`
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.375rem;
+    background-color: #121212;
+    border-radius: 500px;
+`;
+
+const SelectStyled = styled.select`
+    padding: 0.375rem 2.25rem;
+    background-color: #121212;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    border-radius: 1rem:
+`;
+
+const InputStyled = styled.input`
+    padding: 0.375rem 2.25rem;
+    background-color: #121212;
+    color: #ffffff;
+    border: none;
+    border-radius: 1rem:
+`;
+
+const ButtonStyled = styled.button`
+    background-color: #1db954;
+    color: #ffffff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+        background-color: #168d40;
+    }
+`;
+
+const SectionStyled = styled.section``;
+
+const DivStyled = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
 `;
