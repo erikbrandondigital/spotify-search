@@ -1,7 +1,6 @@
-require('dotenv').config({ path: '../../.env' });
 const mongoose = require('mongoose');
 
-exports.connectToMongoose = () => {
+exports.connectDB = () => {
     const DATABASE_URL =
         process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/spotifyDB';
 
@@ -14,7 +13,7 @@ exports.connectToMongoose = () => {
 
     db.once('open', () => {
         console.log(
-            `MongoDB Connection Established - DATABASE_URL = ${DATABASE_URL}`
+            `MongoDB Connection Established > DATABASE_URL = ${DATABASE_URL}`
         );
     });
 };
