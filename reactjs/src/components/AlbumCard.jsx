@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 const AlbumCard = (props) => {
     return (
-        <LinkStyled to={props.url} target='_blank'>
+        <LinkStyled
+            to={props.url}
+            target='_blank'
+            aria-label={`Play ${props.name} on Spotify`}
+        >
             <ArticleStyled>
                 {props.image ? (
                     <ImageStyled

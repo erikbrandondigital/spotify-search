@@ -13,7 +13,7 @@
         "start:react": "cd reactjs && npx vite build",
         "dev": "concurrently \"npm run dev:api\" \"npm run dev:react\"",
         "dev:api": "cd api && nodemon --env-file=../.env server.js",
-        "dev:react": "cd reactjs && npx vite",
+        "dev:react": "cd reactjs && npx vite --host",
         "lint:react": "cd reactjs && eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
     },
     "author": "Erik Brandon",

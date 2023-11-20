@@ -1,14 +1,14 @@
 const crypto = require('crypto');
 const UserToken = require('../models/userToken');
 
-const SPOTIFY_AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
-const SPOTIFY_SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search';
-const REDIRECT_URI = 'http://localhost:3000/spotify/v1/callback';
-
 const API_BASE_URL = process.env.API_BASE_URL;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+
+const SPOTIFY_AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
+const SPOTIFY_SEARCH_ENDPOINT = 'https://api.spotify.com/v1/search';
+const REDIRECT_URI = `${API_BASE_URL}/spotify/v1/callback`;
 
 let STATE = null;
 

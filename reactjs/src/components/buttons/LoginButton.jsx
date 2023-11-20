@@ -15,11 +15,12 @@ export default LoginButton;
 
 const LinkStyled = styled(Link)`
     background-color: #1db954;
-    color: #ffffff;
+    color: #000000;
     border: none;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;

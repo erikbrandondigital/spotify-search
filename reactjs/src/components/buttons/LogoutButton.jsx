@@ -34,12 +34,13 @@ LogoutButton.propTypes = { id: PropTypes.string.isRequired };
 
 const ButtonStyled = styled.button`
     background-color: #1db954;
-    color: #ffffff;
+    color: #000000;
     border: none;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     font-weight: bold;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.25s ease;

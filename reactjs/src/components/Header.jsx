@@ -6,9 +6,9 @@ import { PropTypes } from 'prop-types';
 const Header = (props) => {
     return (
         <HeaderStyled>
-            <Link to='/'>
+            <LinkStyled to='/'>
                 <ImageStyled src='/spotify-logo.svg' alt='Spotify Logo' />
-            </Link>
+            </LinkStyled>
             {props.loggedIn ? (
                 <LogoutButton
                     id={JSON.parse(localStorage.getItem('tokenID'))}
@@ -24,9 +24,12 @@ Header.propTypes = {
     loggedIn: PropTypes.bool.isRequired
 };
 
+const LinkStyled = styled(Link)`
+    display: contents;
+`;
+
 const HeaderStyled = styled.header`
-    background-color: #000000;
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
