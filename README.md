@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web/api) to allow users to search for music within Spotify's music library. The project contains a React frontend that provides users with the ability to sign in to the application using OAuth, providing access to their Spotify account. Upon signing in, users will then be able to search for music by Artist, Album, Track Name, etc. All search and OAuth requests are handled by an Express backend API which acts as a middleman between the application frontend and Spotify's Web APIs.
+This project uses the [Spotify Web API](https://developer.spotify.com/documentation/web/api) to allow users to search for music within Spotify's music library. The project contains a React frontend that provides users with the ability to sign in to the application using OAuth, providing access to their Spotify account. Upon signing in, users will then be able to search for music by Artist, Album, Track Name, etc. All search and OAuth requests are handled by an Express backend API, which acts as a middleman between the application frontend and Spotify's Web APIs.
 
 ### Copyright & Trademark Disclaimer
 
-All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand ("**Spotify Brand Features**") are the sole property of Spotify or its licensors. The usage of the Spotify trademark, service mark, trade name, and logo, within this project is for informational and educational purposes only and does not imply any endorsement by or affiliation with Spotify USA, Inc.
+All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand ("**Spotify Brand Features**") are the sole property of Spotify or its licensors. The usage of the Spotify trademark, service mark, trade name, and logo, within this project, is for informational and educational purposes only and does not imply any endorsement by or affiliation with Spotify USA, Inc.
 
 ## Prerequisites
 
