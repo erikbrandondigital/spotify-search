@@ -6,7 +6,7 @@ This project uses the [Spotify Web API](https://developer.spotify.com/documentat
 
 ### Copyright & Trademark Disclaimer
 
- All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand ("**Spotify Brand Features**") are the sole property of Spotify or its licensors. The usage of the Spotify trademark, service mark, trade name, and logo, within this project is for informational and educational purposes only and does not imply any endorsement by or affiliation with Spotify USA, Inc.
+All Spotify trademarks, service marks, trade names, logos, domain names, and any other features of the Spotify brand ("**Spotify Brand Features**") are the sole property of Spotify or its licensors. The usage of the Spotify trademark, service mark, trade name, and logo, within this project is for informational and educational purposes only and does not imply any endorsement by or affiliation with Spotify USA, Inc.
 
 ## Prerequisites
 
