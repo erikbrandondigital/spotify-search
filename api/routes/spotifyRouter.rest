@@ -1,9 +1,9 @@
-GET http://localhost:3000/spotify/v1/login
+GET http://127.0.0.1:3000/spotify/v1/login
 
 ###
 
-GET http://localhost:3000/spotify/v1/status
+GET http://127.0.0.1:3000/spotify/v1/status
 
 ###
 
-GET http://localhost:3000/spotify/v1/search
+GET http://127.0.0.1:3000/spotify/v1/search

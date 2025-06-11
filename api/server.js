@@ -17,13 +17,13 @@ connectDB();
 app.use('/spotify/v1', spotifyRouter);
 
 app.use('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../reactjs/dist', 'index.html'));
+  res.sendFile(path.join(__dirname, './public', 'index.html'));
 });
 
-app.all('/*', (req, res) => {
-    res.redirect('/');
+app.all('/{*splat}', (req, res) => {
+  res.redirect('/');
 });
 
 app.listen(PORT, () => {
-    console.log(`Backend Server Running > PORT = ${PORT}`);
+  console.log(`Backend Server Running > PORT = ${PORT}`);
 });

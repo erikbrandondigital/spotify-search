@@ -1,0 +1,22 @@
+name: spotify-search
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    depends_on:
+      mongodb:
+        condition: service_started
+    ports:
+      - "3000:3000"
+  mongodb:
+    image: mongo:6.0.6
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
