@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/spotify/v1': {
-        target: 'http://localhost:5173',
+        target: 'http://127.0.0.1:5173',
         changeOrigin: true,
       },
     },

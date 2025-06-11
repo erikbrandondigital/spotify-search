@@ -75,7 +75,7 @@ Below are two tables containing the Environment Variables that can be set and or
 
 | Environment Variable    | Default Value                       | Purpose                                                            |
 | ----------------------- | ----------------------------------- | ------------------------------------------------------------------ |
-| `API_BASE_URL`          | `http://localhost:3000`             | Local or Live URL of the API.                                      |
+| `API_BASE_URL`          | `http://127.0.0.1:3000`             | Local or Live URL of the API.                                      |
 | `PORT`                  | `3000`                              | Port Number for the API.                                           |
 | `DATABASE_URL`          | `mongodb://mongodb:27017/spotifyDB` | A MongoDB connection string containing the table name (spotifyDB). |
 | `SPOTIFY_CLIENT_ID`     | `your-client-id`                    | Your Spotify Developer application's Client ID.                    |
@@ -83,9 +83,9 @@ Below are two tables containing the Environment Variables that can be set and or
 
 #### Express
 
-| Environment Variable | Default Value         | Purpose                       |
-| -------------------- | --------------------- | ----------------------------- |
-| `API_BASE_URL`       | http://localhost:3000 | Local or Live URL of the API. |
+| Environment Variable | Default Value           | Purpose                       |
+| -------------------- | ----------------------- | ----------------------------- |
+| `API_BASE_URL`       | `http://127.0.0.1:3000` | Local or Live URL of the API. |
 
 ### NPM Scripts Reference
 
@@ -115,7 +115,7 @@ Below is a table containing the various URLs and endpoints available for you to 
 
 | Name                                 | Link/Endpoint                             |
 | ------------------------------------ | ----------------------------------------- |
-| Frontend Application                 | http://localhost:3000/                    |
-| API Search                           | http://localhost:3000/spotify/v1/search   |
-| API Login (OAuth Authorization)      | http://localhost:3000/spotify/v1/login    |
-| API Callback (OAuth Token Retrieval) | http://localhost:3000/spotify/v1/callback |
+| Frontend Application                 | http://127.0.0.1:3000/                    |
+| API Search                           | http://127.0.0.1:3000/spotify/v1/search   |
+| API Login (OAuth Authorization)      | http://127.0.0.1:3000/spotify/v1/login    |
+| API Callback (OAuth Token Retrieval) | http://127.0.0.1:3000/spotify/v1/callback |
