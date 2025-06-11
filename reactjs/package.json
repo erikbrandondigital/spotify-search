@@ -10,7 +10,8 @@
     "scripts": {
         "build": "npx vite build",
         "dev": "npx vite --host",
-        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+        "lint:fix": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 --fix"
     },
     "author": "Erik Brandon",
     "license": "ISC",

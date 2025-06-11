@@ -10,7 +10,8 @@
     "scripts": {
         "start": "node --env-file=.env server.js",
         "dev": "nodemon --env-file=.env server.js",
-        "lint": "npx eslint"
+        "lint": "eslint",
+        "lint:fix": "eslint --fix"
     },
     "author": "Erik Brandon",
     "license": "ISC",
